@@ -1,6 +1,7 @@
 # Enzigma Assessment ToDoList
 
 Please check the `todolist1` folder, not the `todolist` folder.
+And also use new branch and not main branch
 
 ## Steps to run the server
 
