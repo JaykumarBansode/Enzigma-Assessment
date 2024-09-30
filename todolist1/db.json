@@ -1,20 +1,84 @@
 {
   "tasks": [
     {
-      "assignedTo": "User 1",
+      "id": 1,
+      "assignedTo": "Pratik",
       "status": "In Progress",
-      "dueDate": "2024-09-11",
-      "priority": "Low",
-      "description": "sanket",
-      "id": 1
+      "dueDate": "2024-10-05",
+      "priority": "High",
+      "description": "Complete the project report."
     },
     {
-      "assignedTo": "User 2",
+      "id": 2,
+      "assignedTo": "Amit",
       "status": "Pending",
-      "dueDate": "2024-10-02",
+      "dueDate": "2024-10-10",
       "priority": "Medium",
-      "description": "my name is bansode and i live in pune",
-      "id": 3
+      "description": "Prepare presentation slides."
+    },
+    {
+      "id": 3,
+      "assignedTo": "Vinay",
+      "status": "Completed",
+      "dueDate": "2024-09-30",
+      "priority": "Low",
+      "description": "Fix bugs in the application."
+    },
+    {
+      "id": 4,
+      "assignedTo": "Sanket",
+      "status": "In Progress",
+      "dueDate": "2024-10-12",
+      "priority": "High",
+      "description": "Develop new feature for the app."
+    },
+    {
+      "id": 5,
+      "assignedTo": "Abhishek",
+      "status": "Pending",
+      "dueDate": "2024-10-15",
+      "priority": "Medium",
+      "description": "Write user documentation."
+    },
+    {
+      "id": 6,
+      "assignedTo": "Balkishan",
+      "status": "Completed",
+      "dueDate": "2024-09-28",
+      "priority": "Low",
+      "description": "Update dependencies."
+    },
+    {
+      "id": 7,
+      "assignedTo": "Jay",
+      "status": "In Progress",
+      "dueDate": "2024-10-08",
+      "priority": "High",
+      "description": "check user requirements."
+    },
+    {
+      "id": 8,
+      "assignedTo": "Anush",
+      "status": "Pending",
+      "dueDate": "2024-10-20",
+      "priority": "Medium",
+      "description": "Create marketing materials."
+    },
+    {
+      "id": 9,
+      "assignedTo": "Akshay",
+      "status": "In Progress",
+      "dueDate": "2024-10-02",
+      "priority": "High",
+      "description": "Set up server for deployment."
+    },
+    {
+      "id": 10,
+      "assignedTo": "Tabish",
+      "status": "Completed",
+      "dueDate": "2024-09-25",
+      "priority": "Low",
+      "description": "make changes in old code."
     }
   ]
 }

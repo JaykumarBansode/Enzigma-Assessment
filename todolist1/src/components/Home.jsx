@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 function Home() {
   const [tasks, setTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState({});
+  const [searchPriority, setSearchPriority] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5; // Number of tasks per page
 
   const getData = async () => {
     try {
@@ -36,15 +39,47 @@ function Home() {
   };
 
   const handleSelectAll = () => {
-    if (Object.keys(checkedTasks).length === tasks.length) {
+    if (Object.keys(checkedTasks).length === filteredTasks.length) {
       setCheckedTasks({});
     } else {
       const allSelected = {};
-      tasks.forEach((task) => {
+      filteredTasks.forEach((task) => {
         allSelected[task.id] = true;
       });
       setCheckedTasks(allSelected);
     }
+  };
+
+  // Filter tasks based on search input
+  const filteredTasks = tasks.filter((task) =>
+    task.priority.toLowerCase().includes(searchPriority.toLowerCase())
+  );
+
+  // Calculate current tasks for the current page
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = filteredTasks.slice(indexOfFirstTask, indexOfLastTask);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
+  // Pagination buttons
+  const renderPagination = () => {
+    const buttons = [];
+    for (let i = 1; i <= totalPages; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i)}
+          className={`btn btn-sm ${
+            i === currentPage ? "btn-primary" : "btn-secondary"
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+    return buttons;
   };
 
   return (
@@ -60,6 +95,18 @@ function Home() {
               Refresh
             </button>
           </div>
+
+          {/* Search Input */}
+          <div className="mb-3">
+            <input
+              type="text"
+              placeholder="Search by priority"
+              className="form-control"
+              value={searchPriority}
+              onChange={(e) => setSearchPriority(e.target.value)}
+            />
+          </div>
+
           <div className="card shadow-sm">
             <div className="card-body">
               <table className="table table-bordered table-striped">
@@ -71,8 +118,8 @@ function Home() {
                         className="form-check-input"
                         onChange={handleSelectAll}
                         checked={
-                          Object.keys(checkedTasks).length === tasks.length &&
-                          tasks.length > 0
+                          Object.keys(checkedTasks).length ===
+                            currentTasks.length && currentTasks.length > 0
                         }
                       />
                     </th>
@@ -85,7 +132,7 @@ function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks.map((task) => (
+                  {currentTasks.map((task) => (
                     <tr
                       key={task.id}
                       className={checkedTasks[task.id] ? "strikethrough" : ""}
@@ -130,6 +177,9 @@ function Home() {
                   ))}
                 </tbody>
               </table>
+
+              {/* Pagination Controls */}
+              <div className="pagination mt-3">{renderPagination()}</div>
             </div>
           </div>
         </div>
