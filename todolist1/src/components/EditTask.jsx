@@ -121,6 +121,8 @@ function EditTask() {
                         <option value="User 1">User 1</option>
                         <option value="User 2">User 2</option>
                         <option value="User 3">User 3</option>
+                        <option value="User 3">User 4</option>
+                        <option value="User 3">User 5</option>
                       </select>
                     </div>
                     <div className="mb-3">

@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": 1,
-      "assignedTo": "Pratik",
+      "assignedTo": "User1",
       "status": "In Progress",
       "dueDate": "2024-10-05",
       "priority": "High",
@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "assignedTo": "Amit",
+      "assignedTo": "User2",
       "status": "Pending",
       "dueDate": "2024-10-10",
       "priority": "Medium",
@@ -18,7 +18,7 @@
     },
     {
       "id": 3,
-      "assignedTo": "Vinay",
+      "assignedTo": "User3",
       "status": "Completed",
       "dueDate": "2024-09-30",
       "priority": "Low",
@@ -26,7 +26,7 @@
     },
     {
       "id": 4,
-      "assignedTo": "Sanket",
+      "assignedTo": "User3",
       "status": "In Progress",
       "dueDate": "2024-10-12",
       "priority": "High",
@@ -34,7 +34,7 @@
     },
     {
       "id": 5,
-      "assignedTo": "Abhishek",
+      "assignedTo": "User5",
       "status": "Pending",
       "dueDate": "2024-10-15",
       "priority": "Medium",
@@ -42,7 +42,7 @@
     },
     {
       "id": 6,
-      "assignedTo": "Balkishan",
+      "assignedTo": "User1",
       "status": "Completed",
       "dueDate": "2024-09-28",
       "priority": "Low",
@@ -50,7 +50,7 @@
     },
     {
       "id": 7,
-      "assignedTo": "Jay",
+      "assignedTo": "User2",
       "status": "In Progress",
       "dueDate": "2024-10-08",
       "priority": "High",
@@ -58,7 +58,7 @@
     },
     {
       "id": 8,
-      "assignedTo": "Anush",
+      "assignedTo": "User4",
       "status": "Pending",
       "dueDate": "2024-10-20",
       "priority": "Medium",
@@ -66,7 +66,7 @@
     },
     {
       "id": 9,
-      "assignedTo": "Akshay",
+      "assignedTo": "User2",
       "status": "In Progress",
       "dueDate": "2024-10-02",
       "priority": "High",
@@ -74,7 +74,7 @@
     },
     {
       "id": 10,
-      "assignedTo": "Tabish",
+      "assignedTo": "User5",
       "status": "Completed",
       "dueDate": "2024-09-25",
       "priority": "Low",
