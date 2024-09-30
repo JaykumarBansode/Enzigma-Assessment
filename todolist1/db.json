@@ -1,0 +1,20 @@
+{
+  "tasks": [
+    {
+      "assignedTo": "User 1",
+      "status": "In Progress",
+      "dueDate": "2024-09-11",
+      "priority": "Low",
+      "description": "sanket",
+      "id": 1
+    },
+    {
+      "assignedTo": "User 2",
+      "status": "Pending",
+      "dueDate": "2024-10-02",
+      "priority": "Medium",
+      "description": "my name is bansode and i live in pune",
+      "id": 3
+    }
+  ]
+}
