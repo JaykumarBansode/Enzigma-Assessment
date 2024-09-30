@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.strikethrough {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px; /* Adjust thickness as needed */
+  color:  #ffd700;; /* Brighter color for the strikethrough */
+}
+
+.btn:disabled {
+  opacity: 0.5; /* Make the button appear disabled */
+  cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+}

@@ -1,134 +1,141 @@
-import axios from "axios"; // Importing axios for making HTTP requests
-import { useEffect, useState } from "react"; // Importing React hooks
-import { Link } from "react-router-dom"; // Importing Link from React Router for navigation
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
-  const [tasks, setTasks] = useState([]); // State to hold the list of tasks
+  const [tasks, setTasks] = useState([]);
+  const [checkedTasks, setCheckedTasks] = useState({});
 
-  // Function to fetch tasks from the server
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/tasks"); // GET request to fetch tasks
-      // console.log(response.data); // Log the fetched task data
-      setTasks(response.data); // Update the state with the fetched tasks
+      const response = await axios.get("http://localhost:4000/tasks");
+      setTasks(response.data);
     } catch (error) {
-      console.log(error); // Log any errors encountered during the fetch
+      console.log(error);
     }
   };
 
-  // useEffect to fetch tasks when the component mounts
   useEffect(() => {
-    getData(); // Fetch tasks on component mount
-  }, []); // Empty dependency array ensures this runs only once
+    getData();
+  }, []);
 
-  // Function to delete a task by ID
   const onDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/tasks/${id}`); // DELETE request to remove the task
-      // console.log(response.data); // Log the response from deletion
-      getData(); // Refresh the task list after deletion
+      await axios.delete(`http://localhost:4000/tasks/${id}`);
+      getData();
     } catch (error) {
-      // console.log(error); // Log any errors encountered during deletion
-      alert("Unable to delete the task."); // Alert user if deletion fails
+      alert("Unable to delete the task.");
+    }
+  };
+
+  const handleCheckboxChange = (id) => {
+    setCheckedTasks((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  const handleSelectAll = () => {
+    if (Object.keys(checkedTasks).length === tasks.length) {
+      setCheckedTasks({});
+    } else {
+      const allSelected = {};
+      tasks.forEach((task) => {
+        allSelected[task.id] = true;
+      });
+      setCheckedTasks(allSelected);
     }
   };
 
   return (
-    <>
-      <div className="container mt-5">
-        {" "}
-        {/* Bootstrap container for layout */}
-        <h2 className="page-header text-center mb-4">To Do List</h2>{" "}
-        {/* Header for the page */}
-        <div className="row justify-content-center">
-          {" "}
-          {/* Center the row */}
-          <div className="col-lg-8">
-            {" "}
-            {/* Define the width of the column */}
-            <div className="d-flex justify-content-between mb-3">
-              {" "}
-              {/* Flexbox for button alignment */}
-              <Link to="/add-task" className="btn btn-success">
-                {" "}
-                {/* Link to add a new task */}
-                Add New Task
-              </Link>
-              <button className="btn btn-info" onClick={getData}>
-                {" "}
-                {/* Button to refresh task list */}
-                Refresh
-              </button>
-            </div>
-            <div className="card shadow-sm">
-              {" "}
-              {/* Bootstrap card for better styling */}
-              <div className="card-body">
-                {" "}
-                {/* Body of the card containing the table */}
-                <table className="table table-bordered table-striped">
-                  {" "}
-                  {/* Bootstrap table */}
-                  <thead className="thead-dark">
-                    {" "}
-                    {/* Table header with dark background */}
-                    <tr>
-                      <th>Assigned To</th>
-                      <th>Status</th>
-                      <th>Due Date</th>
-                      <th>Priority</th>
-                      <th>Description</th>
-                      <th>Actions</th> {/* Column for action buttons */}
+    <div className="container mt-5">
+      <h2 className="page-header text-center mb-4">To Do List</h2>
+      <div className="row justify-content-center">
+        <div className="col-lg-8">
+          <div className="d-flex justify-content-between mb-3">
+            <Link to="/add-task" className="btn btn-success">
+              Add New Task
+            </Link>
+            <button className="btn btn-info" onClick={getData}>
+              Refresh
+            </button>
+          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <table className="table table-bordered table-striped">
+                <thead className="thead-dark">
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        onChange={handleSelectAll}
+                        checked={
+                          Object.keys(checkedTasks).length === tasks.length &&
+                          tasks.length > 0
+                        }
+                      />
+                    </th>
+                    <th>Assigned To</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tasks.map((task) => (
+                    <tr
+                      key={task.id}
+                      className={checkedTasks[task.id] ? "strikethrough" : ""}
+                    >
+                      <td>
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          checked={!!checkedTasks[task.id]}
+                          onChange={() => handleCheckboxChange(task.id)}
+                        />
+                      </td>
+                      <td>{task.assignedTo}</td>
+                      <td>{task.status}</td>
+                      <td>{task.dueDate}</td>
+                      <td>{task.priority}</td>
+                      <td>{task.description}</td>
+                      <td>
+                        <div className="d-flex gap-2">
+                          {checkedTasks[task.id] ? (
+                            <button className="btn btn-primary btn-sm" disabled>
+                              Edit
+                            </button>
+                          ) : (
+                            <Link
+                              className="btn btn-primary btn-sm"
+                              to={`/edit-task/${task.id}`}
+                            >
+                              Edit
+                            </Link>
+                          )}
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => onDelete(task.id)}
+                            disabled={!!checkedTasks[task.id]} // Disable if checked
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {tasks.map(
-                      (
-                        task,
-                        index // Map through tasks to create table rows
-                      ) => (
-                        <tr key={index}>
-                          {" "}
-                          {/* Use index as key for rows */}
-                          <td>{task.assignedTo}</td>{" "}
-                          {/* Display assigned person */}
-                          <td>{task.status}</td> {/* Display task status */}
-                          <td>{task.dueDate}</td> {/* Display due date */}
-                          <td>{task.priority}</td> {/* Display task priority */}
-                          <td>{task.description}</td>{" "}
-                          {/* Display task description */}
-                          <td>
-                            {" "}
-                            {/* Column for action buttons */}
-                            <div className="d-flex gap-2">
-                              {" "}
-                              {/* Flexbox for button alignment */}
-                              <Link
-                                className="btn btn-primary btn-sm" // Link to edit the task
-                                to={"/edit-task/" + task.id} // Dynamic link based on task ID
-                              >
-                                Edit
-                              </Link>
-                              <button
-                                className="btn btn-danger btn-sm" // Button to delete the task
-                                onClick={() => onDelete(task.id)} // Call onDelete with task ID
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default Home; // Exporting the component for use in other parts of the application
+export default Home;
